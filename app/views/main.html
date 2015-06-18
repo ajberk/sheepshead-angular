@@ -1,8 +1,10 @@
 <H1>Sheepshead Score Tracker</H1>
 
-<input type="text" ng-model="newAwesomeThing"></input>
-<button ng-click="ctrl.addNewPlayer(newPlayerName)">Add Awesome Thing</button>
+<input type="text" ng-model="newPlayer.name" placeholder="New Player Name"></input>
+<button ng-click="ctrl.addNewPlayer(newPlayer)">Add Player</button>
 
-<div ng-repeat="awesomeThing in awesomeThings">
-  {{awesomeThing.name}}
+<div class="players">
+  <div ng-repeat="player in players">
+    {{player.name}}
+  </div>
 </div>

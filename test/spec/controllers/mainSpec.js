@@ -27,5 +27,11 @@ describe('Controller: MainCtrl', function () {
 
       expect(scope.players.length).toEqual(5);
     });
+
+    it("clears out the new player's name", function() {
+      scope.newPlayerName = 'Jason';
+      MainCtrl.addNewPlayer('Jason');
+      expect(scope.newPlayerName).toEqual('');
+    });
   });
 });

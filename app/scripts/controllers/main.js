@@ -2,10 +2,13 @@
 
 angular.module('sheepsheadApp').controller('MainCtrl', function ($scope) {
   $scope.players = [];
+  $scope.newPlayer = {name: ""};
 
-  this.addNewPlayer = function(playerName) {
+  this.addNewPlayer = function(newPlayer) {
     if ($scope.players.length < 5) {
-      $scope.players.push({name: playerName});
+      $scope.players.push(newPlayer);
     }
+
+    $scope.newPlayer = {name: ""};
   };
 });

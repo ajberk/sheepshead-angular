@@ -7,12 +7,14 @@ describe('Controller: MainCtrl', function () {
     scope;
 
   var fakeUuid = function() { return "some-dumb-uuid" };
+  var calculateScoreForPlayerSpy = jasmine.createSpy("calculateScoreForPlayer");
 
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
     MainCtrl = $controller('MainCtrl', {
       $scope: scope,
-      uuid: fakeUuid
+      uuid: fakeUuid,
+      calculateScoreForPlayer: calculateScoreForPlayerSpy
     });
   }));
 
@@ -56,7 +58,7 @@ describe('Controller: MainCtrl', function () {
     });
   });
 
-  describe("completing a round", function() {
+  describe("when a new round is completed", function() {
     it("marks the round as completed", function() {
       var round = {completed: false};
       MainCtrl.roundCompleted(round, {pickersWon: true});
@@ -74,5 +76,16 @@ describe('Controller: MainCtrl', function () {
       MainCtrl.roundCompleted(round, {pickersWon: true});
       expect(round.pickersWon).toEqual(true);
     });
-  })
+  });
+
+  describe("when totaling up the scores", function() {
+    it("calls the calculateScore function", function() {
+      var player = {name: 'Bob', id: 'abc123'};
+      scope.rounds = [{players: [player]}];
+
+      MainCtrl.totalScoreForPlayer(player);
+
+      expect(calculateScoreForPlayerSpy).toHaveBeenCalledWith(player, scope.rounds);
+    });
+  });
 });

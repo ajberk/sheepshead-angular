@@ -1,7 +1,7 @@
 (function(angular) {
   'use strict';
 
-  angular.module('sheepsheadApp').controller('MainCtrl', function ($scope, uuid) {
+  angular.module('sheepsheadApp').controller('MainCtrl', function ($scope, uuid, calculateScoreForPlayer) {
     $scope.players = [];
     $scope.rounds = [];
     $scope.newPlayer = {name: ""};
@@ -23,6 +23,11 @@
       round.completed = true;
       round.pickersWon = options.pickersWon;
       $scope.rounds.push({players: $scope.players, completed: false});
+      console.log($scope.rounds)
+    };
+
+    this.totalScoreForPlayer = function(player) {
+      return calculateScoreForPlayer(player, $scope.rounds);
     };
   });
 })(window.angular);

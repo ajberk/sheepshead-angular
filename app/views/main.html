@@ -62,3 +62,16 @@
     </div>
   </div>
 </div>
+
+<div class="totals">
+  <div class="row">
+    <span class="col-md-2">
+      <strong>Totals</strong>
+    </span>
+
+    <span class="player col-md-2" ng-repeat="player in players">
+      <div>{{player.name}}</div>
+      <div><strong>{{ctrl.totalScoreForPlayer(player)}}</strong></div>
+    </span>
+  </div>
+</div>

@@ -22,5 +22,25 @@ describe('The Sheepshead Counter', function() {
     ).$('.partner').click();
 
     element(by.buttonText('Pickers Won')).click();
+
+    expect(element(
+      by.cssContainingText('.totals .player', 'Freddie')).getText()
+    ).toContain("2");
+
+    expect(element(
+      by.cssContainingText('.totals .player', 'Greta')).getText()
+    ).toContain("1");
+
+    expect(element(
+      by.cssContainingText('.totals .player', 'Jason')).getText()
+    ).toContain("-1");
+
+    expect(element(
+      by.cssContainingText('.totals .player', 'Hans')).getText()
+    ).toContain("-1");
+
+    expect(element(
+      by.cssContainingText('.totals .player', 'Yoda')).getText()
+    ).toContain("-1");
   });
 });

@@ -1,10 +1,64 @@
 <H1>Sheepshead Score Tracker</H1>
 
-<input type="text" ng-model="newPlayer.name" placeholder="New Player Name"></input>
-<button ng-click="ctrl.addNewPlayer(newPlayer)">Add Player</button>
+<form ng-submit="ctrl.addNewPlayer(newPlayer)">
+  <input type="text" ng-model="newPlayer.name" placeholder="New Player Name"></input>
+  <input type="submit" value="Add Player"></input>
+</form>
 
 <div class="players">
-  <div ng-repeat="player in players">
+  <span ng-repeat="player in players">
     {{player.name}}
+  </span>
+</div>
+
+<button ng-click="ctrl.startNewGame(players)" ng-disabled="players.length != 5">Start New Game</button>
+
+<div class="rounds">
+  <div class="round" ng-repeat="round in rounds">
+    <h2>Round {{$index + 1}}</h2>
+    <div class="row">
+      <span class="col-md-2">
+        <strong>Picker</strong>
+        <br/>
+        <br/>
+        <strong>Partner</strong>
+      </span>
+      <span class="player col-md-2" ng-repeat="player in round.players">
+        <div>
+          <input class="picker"
+                 type="radio"
+                 ng-model="round.pickerId"
+                 value="{{player.id}}"
+                 ng-disabled="round.partnerId == player.id || round.completed">
+
+          </input>
+        </div>
+        <div>
+          {{player.name}}
+        </div>
+        <div>
+          <input class="partner"
+                 type="radio"
+                 ng-model="round.partnerId"
+                 value="{{player.id}}"
+                 ng-disabled="round.pickerId == player.id || round.completed">
+
+          </input>
+        </div>
+      </span>
+    </div>
+
+    <div class="row">
+      <button class="col-md-6"
+              ng-click="ctrl.roundCompleted(round, {pickersWon: true})"
+              ng-disabled="round.completed || !round.pickerId || !round.partnerId">
+        Pickers Won
+      </button>
+      <button class="col-md-6"
+              ng-click="ctrl.roundCompleted(round, {pickersWon: false})"
+              ng-disabled="round.completed || !round.pickerId || !round.partnerId">
+        Pickers Lost
+      </button>
+    </div>
   </div>
 </div>
